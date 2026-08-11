@@ -83,6 +83,9 @@ export default function App() {
               />
               <label htmlFor="includeSymbols">Include Symbols</label>
             </div>
+            <div className="input-group">
+              <button type="submit">Generate</button>
+            </div>
           </div>
         </form>
       </main>
