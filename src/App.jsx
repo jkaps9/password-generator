@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -16,6 +16,25 @@ export default function App() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const generatePassword = useCallback(() => {
+    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    if (formData.includeNumbers) chars += "0123456789";
+    if (formData.includeSymbols) chars += "!@#$%^&*()_+";
+
+    let generated = "";
+    for (let i = 0; i < formData.length; i++) {
+      const index = Math.floor(Math.random() * chars.length);
+      generated += chars[index];
+    }
+    console.log(generated);
+    setPassword(generated);
+  }, [formData.length, formData.includeNumbers, formData.includeSymbols]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    generatePassword();
+  };
+
   return (
     <>
       <header>
@@ -27,7 +46,7 @@ export default function App() {
             {password === "" ? "P4$5W0rD!" : password}
           </p>
         </div>
-        <form noValidate>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="input-group">
             <div>
               <label htmlFor="range">Character Length</label>
