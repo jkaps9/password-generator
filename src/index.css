@@ -169,6 +169,9 @@ p {
   flex-direction: column;
   gap: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
   justify-content: center;
+
+  /* SPACING */
+  --spacing-100: 8;
   margin-inline: auto;
   max-width: 540px;
   min-height: 100svh;
@@ -289,4 +292,12 @@ label {
       border-color: var(--colors-green-200);
     }
   }
+}
+
+input[aria-invalid="true"]::-webkit-slider-runnable-track {
+  border: 1px solid var(--colors-red-500);
+}
+
+.error-message {
+  color: var(--colors-red-500);
 }

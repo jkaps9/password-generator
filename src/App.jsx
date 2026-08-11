@@ -124,7 +124,14 @@ export default function App() {
                 value={formData.length}
                 step="1"
                 onChange={handleInputChange}
+                aria-invalid={errors.lengthError ? "true" : "false"}
+                aria-describedby="lengthError"
               />
+              {errors.lengthError !== "" && (
+                <p id="lengthError" className="error-message">
+                  {errors.lengthError}
+                </p>
+              )}
             </div>
 
             <div className="input-group">
