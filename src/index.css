@@ -281,16 +281,26 @@ label {
     border: 2px solid var(--color-border);
     min-height: 28px;
     width: 10px;
+  }
 
-    &.filled {
-      background-color: var(--colors-yellow-300);
-      border-color: var(--colors-yellow-300);
-    }
+  &.one-bar > .filled {
+    background-color: var(--colors-red-500);
+    border-color: var(--colors-red-500);
+  }
 
-    &.filled--all {
-      background-color: var(--colors-green-200);
-      border-color: var(--colors-green-200);
-    }
+  &.two-bars > .filled {
+    background-color: var(--colors-orange-400);
+    border-color: var(--colors-orange-400);
+  }
+
+  &.three-bars > .filled {
+    background-color: var(--colors-yellow-300);
+    border-color: var(--colors-yellow-300);
+  }
+
+  &.four-bars > .filled {
+    background-color: var(--colors-green-200);
+    border-color: var(--colors-green-200);
   }
 }
 

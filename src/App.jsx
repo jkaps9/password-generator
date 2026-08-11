@@ -185,37 +185,39 @@ export default function App() {
               <div className="password-strength">
                 <p>
                   {passwordAnalysis?.score <= 1
-                    ? "WEAK"
-                    : passwordAnalysis?.score <= 3
-                      ? "MEDIUM"
-                      : passwordAnalysis?.score == 4
-                        ? "STRONG"
-                        : " "}
+                    ? "TOO WEAK!"
+                    : passwordAnalysis?.score === 2
+                      ? "WEAK"
+                      : passwordAnalysis?.score === 3
+                        ? "MEDIUM"
+                        : passwordAnalysis?.score === 4
+                          ? "STRONG"
+                          : " "}
                 </p>
-                <div className="strength-bars">
+                <div
+                  className={`strength-bars  ${
+                    passwordAnalysis?.score <= 1
+                      ? "one-bar"
+                      : passwordAnalysis?.score === 2
+                        ? "two-bars"
+                        : passwordAnalysis?.score === 3
+                          ? "three-bars"
+                          : passwordAnalysis?.score === 4
+                            ? "four-bars"
+                            : " "
+                  }`}
+                >
                   <div
-                    className={`
-                    ${passwordAnalysis?.score >= 1 ? "filled" : undefined}
-                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
-                    `}
+                    className={`${passwordAnalysis?.score >= 0 ? "filled" : ""}`}
                   ></div>
                   <div
-                    className={`
-                    ${passwordAnalysis?.score >= 2 ? "filled" : undefined}
-                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
-                    `}
+                    className={`${passwordAnalysis?.score >= 2 ? "filled" : ""}`}
                   ></div>
                   <div
-                    className={`
-                    ${passwordAnalysis?.score >= 3 ? "filled" : undefined}
-                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
-                    `}
+                    className={`${passwordAnalysis?.score >= 3 ? "filled" : ""}`}
                   ></div>
                   <div
-                    className={`
-                    ${passwordAnalysis?.score >= 4 ? "filled" : undefined}
-                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
-                    `}
+                    className={`${passwordAnalysis?.score >= 4 ? "filled" : ""}`}
                   ></div>
                 </div>
               </div>
