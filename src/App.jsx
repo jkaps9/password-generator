@@ -50,7 +50,7 @@ export default function App() {
       </header>
       <main>
         <div className="password-output">
-          <p className={password === "" && "faded"}>
+          <p className={password === "" ? "faded" : undefined}>
             {password === "" ? "P4$5W0rD!" : password}
           </p>
         </div>
