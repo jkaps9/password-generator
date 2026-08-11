@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
 import { generateSecurePassword } from "./utils/passwordGenerator";
@@ -27,7 +27,7 @@ export default function App() {
     setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   };
 
-  const generatePassword = useCallback(() => {
+  const generatePassword = () => {
     const generated = generateSecurePassword(
       formData.length,
       formData.includeUppercase,
@@ -41,13 +41,7 @@ export default function App() {
       setPasswordAnalysis(null);
     }
     setPassword(generated);
-  }, [
-    formData.length,
-    formData.includeUppercase,
-    formData.includeLowercase,
-    formData.includeNumbers,
-    formData.includeSymbols,
-  ]);
+  };
 
   const validateForm = () => {
     let isValid = true;
