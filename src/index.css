@@ -217,12 +217,20 @@ h1 {
 .btn {
   background: none;
   border: none;
+  color: var(--color-primary);
+  gap: 1rem;
+
+  &:hover {
+    color: var(--color-text-body);
+    cursor: pointer;
+  }
 }
 
 .btn--primary {
   align-items: center;
   background-color: var(--color-primary);
   border: 2px solid transparent;
+  color: var(--color-bg);
   display: inline-flex;
   gap: clamp(0.5rem, 0.1479rem + 1.5023vw, 1.5rem);
   justify-content: center;
@@ -235,7 +243,6 @@ h1 {
     background-color: transparent;
     border-color: var(--color-primary);
     color: var(--color-primary);
-    cursor: pointer;
   }
 }
 

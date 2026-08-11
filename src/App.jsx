@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import CopyIcon from "./assets/icons/icon-copy.svg";
-import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
+import CopyIcon from "./assets/icons/icon-copy.svg?react";
+import ArrowIcon from "./assets/icons/icon-arrow-right.svg?react";
 import { generateSecurePassword } from "./utils/passwordGenerator";
 import zxcvbn from "zxcvbn";
 
@@ -119,13 +119,7 @@ export default function App() {
             aria-label="copy password to clipboard"
           >
             {isCopiedTextVisible && <p className="accent-text">COPIED</p>}
-            <img
-              src={CopyIcon}
-              alt=""
-              aria-hidden="true"
-              height={20}
-              width={17.5}
-            />
+            <CopyIcon aria-hidden="true" height={20} width={17.5}></CopyIcon>
           </button>
         </div>
         <div className="card">
@@ -278,7 +272,7 @@ export default function App() {
             <div className="input-group">
               <button className="btn btn--primary" type="submit">
                 Generate
-                <img src={ArrowIcon} alt="" aria-hidden="true" />
+                <ArrowIcon aria-hidden="true"></ArrowIcon>
               </button>
             </div>
           </form>
