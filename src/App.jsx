@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
 import { generateSecurePassword } from "./utils/passwordGenerator";
@@ -20,6 +20,19 @@ export default function App() {
 
   const [password, setPassword] = useState("");
   const [passwordAnalysis, setPasswordAnalysis] = useState(null);
+  const [isCopiedTextVisible, setIsCopiedTextVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isCopiedTextVisible) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setIsCopiedTextVisible(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isCopiedTextVisible]);
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -80,6 +93,14 @@ export default function App() {
     }
   };
 
+  const handleCopy = () => {
+    if (password === "") {
+      return;
+    }
+    navigator.clipboard.writeText(password);
+    setIsCopiedTextVisible(true);
+  };
+
   return (
     <>
       <header>
@@ -93,10 +114,11 @@ export default function App() {
             {password === "" ? "P4$5W0rD!" : password}
           </p>
           <button
-            className="btn"
-            onClick={() => navigator.clipboard.writeText(password)}
+            className="btn row"
+            onClick={handleCopy}
             aria-label="copy password to clipboard"
           >
+            {isCopiedTextVisible && <p className="accent-text">COPIED</p>}
             <img
               src={CopyIcon}
               alt=""
