@@ -56,7 +56,7 @@
   --color-text-header: var(--colors-grey-600);
   --color-text-body: var(--colors-grey-200);
 
-  --color-border: var(--colors-grey-700);
+  --color-border: var(--colors-grey-200);
   --color-bg-surface: var(--colors-grey-800);
 
   /* TYPOGRAPHY */
@@ -164,22 +164,20 @@ p {
   isolation: isolate;
 }
 
-body {
-  display: grid;
-  place-content: center;
-}
-
 #root {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
-  place-content: center;
+  justify-content: center;
+  margin-inline: auto;
   max-width: 540px;
   min-height: 100svh;
   width: 100%;
 }
 
 main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem);
 }
 
@@ -201,6 +199,10 @@ h1 {
   background-color: var(--color-bg-surface);
   padding: clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem)
     clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
+}
+
+.card--inner {
+  background-color: var(--colors-grey-850);
 }
 
 .row {
@@ -260,4 +262,31 @@ input[type="checkbox"] {
 
 label {
   font-size: clamp(1rem, 0.956rem + 0.1878vw, 1.125rem);
+}
+
+.password-strength {
+  align-items: center;
+  display: flex;
+  font-size: clamp(1.125rem, 0.993rem + 0.5634vw, 1.5rem);
+  gap: 1rem;
+}
+.strength-bars {
+  display: flex;
+  gap: 0.5rem;
+
+  & > * {
+    border: 2px solid var(--color-border);
+    min-height: 28px;
+    width: 10px;
+
+    &.filled {
+      background-color: var(--colors-yellow-300);
+      border-color: var(--colors-yellow-300);
+    }
+
+    &.filled--all {
+      background-color: var(--colors-green-200);
+      border-color: var(--colors-green-200);
+    }
+  }
 }
