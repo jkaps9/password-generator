@@ -169,3 +169,11 @@ p {
   flex-direction: column;
   min-height: 100svh;
 }
+
+/*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
+<~~         Utilities          ~~>
+<~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~*/
+
+.faded {
+  color: var(--colors-grey-700);
+}

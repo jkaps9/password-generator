@@ -9,6 +9,8 @@ export default function App() {
     includeSymbols: "off",
   });
 
+  const [password, setPassword] = useState("");
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -20,6 +22,11 @@ export default function App() {
         <h1>Password Generator</h1>
       </header>
       <main>
+        <div className="password-output">
+          <p className={password === "" && "faded"}>
+            {password === "" ? "P4$5W0rD!" : password}
+          </p>
+        </div>
         <form noValidate>
           <div className="input-group">
             <div>
