@@ -208,12 +208,20 @@ main {
 .btn--primary {
   align-items: center;
   background-color: var(--color-primary);
+  border: 2px solid transparent;
   display: inline-flex;
   gap: clamp(0.5rem, 0.1479rem + 1.5023vw, 1.5rem);
   justify-content: center;
   padding-block: clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem);
   text-transform: uppercase;
   width: 100%;
+
+  &:hover {
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    cursor: pointer;
+  }
 }
 
 .generate-password-form {
