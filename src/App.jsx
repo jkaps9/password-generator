@@ -152,7 +152,7 @@ export default function App() {
             className="generate-password-form"
             noValidate
           >
-            <div className="input-group" aria-live="polite">
+            <div className="input-group">
               <div className="row">
                 <label htmlFor="range">Character Length</label>
                 <p className="accent-text character-count">{formData.length}</p>
@@ -169,14 +169,16 @@ export default function App() {
                 aria-invalid={errors.lengthError ? "true" : "false"}
                 aria-describedby="lengthError"
               />
-              {errors.lengthError !== "" && (
-                <p id="lengthError" className="error-message">
-                  {errors.lengthError}
-                </p>
-              )}
+              <div aria-live="polite">
+                {errors.lengthError !== "" && (
+                  <p id="lengthError" className="error-message">
+                    {errors.lengthError}
+                  </p>
+                )}
+              </div>
             </div>
 
-            <div className="input-group" aria-live="polite">
+            <div className="input-group">
               <div>
                 <input
                   type="checkbox"
@@ -245,11 +247,13 @@ export default function App() {
                 />
                 <label htmlFor="includeSymbols">Include Symbols</label>
               </div>
-              {errors.checkboxError !== "" && (
-                <p id="checkboxError" className="error-message">
-                  {errors.checkboxError}
-                </p>
-              )}
+              <div aria-live="polite">
+                {errors.checkboxError !== "" && (
+                  <p id="checkboxError" className="error-message">
+                    {errors.checkboxError}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="card card--inner row">
               <p className="faded">STRENGTH</p>
