@@ -15,6 +15,7 @@ export default function App() {
 
   const [errors, setErrors] = useState({
     lengthError: "",
+    checkboxError: "",
   });
 
   const [password, setPassword] = useState("");
@@ -56,7 +57,10 @@ export default function App() {
       (formData.includeLowercase && 1) +
       (formData.includeNumbers && 1) +
       (formData.includeSymbols && 1);
-    if (formData.length < counts) {
+    if (counts === 0) {
+      isValid = false;
+      newErrors.checkboxError = "Must select at least 1 checkbox";
+    } else if (formData.length < counts) {
       isValid = false;
       newErrors.lengthError = `Password Length must be at least ${counts} characters`;
     } else if (formData.length === 0) {
@@ -110,7 +114,7 @@ export default function App() {
             className="generate-password-form"
             noValidate
           >
-            <div className="input-group">
+            <div className="input-group" aria-live="polite">
               <div className="row">
                 <label htmlFor="range">Character Length</label>
                 <p className="accent-text character-count">{formData.length}</p>
@@ -134,7 +138,7 @@ export default function App() {
               )}
             </div>
 
-            <div className="input-group">
+            <div className="input-group" aria-live="polite">
               <div>
                 <input
                   type="checkbox"
@@ -142,6 +146,12 @@ export default function App() {
                   name="includeUppercase"
                   onChange={handleInputChange}
                   checked={formData.includeUppercase}
+                  aria-invalid={
+                    errors.checkboxError && !formData.includeUppercase
+                      ? "true"
+                      : "false"
+                  }
+                  aria-describedby="checkboxError"
                 />
                 <label htmlFor="includeUppercase">
                   Include Uppercase Letters
@@ -154,6 +164,12 @@ export default function App() {
                   name="includeLowercase"
                   onChange={handleInputChange}
                   checked={formData.includeLowercase}
+                  aria-invalid={
+                    errors.checkboxError && !formData.includeLowercase
+                      ? "true"
+                      : "false"
+                  }
+                  aria-describedby="checkboxError"
                 />
                 <label htmlFor="includeLowercase">
                   Include Lowercase Letters
@@ -166,6 +182,12 @@ export default function App() {
                   name="includeNumbers"
                   onChange={handleInputChange}
                   checked={formData.includeNumbers}
+                  aria-invalid={
+                    errors.checkboxError && !formData.includeNumbers
+                      ? "true"
+                      : "false"
+                  }
+                  aria-describedby="checkboxError"
                 />
                 <label htmlFor="includeNumbers">Include Numbers</label>
               </div>
@@ -176,9 +198,20 @@ export default function App() {
                   name="includeSymbols"
                   onChange={handleInputChange}
                   checked={formData.includeSymbols}
+                  aria-invalid={
+                    errors.checkboxError && !formData.includeSymbols
+                      ? "true"
+                      : "false"
+                  }
+                  aria-describedby="checkboxError"
                 />
                 <label htmlFor="includeSymbols">Include Symbols</label>
               </div>
+              {errors.checkboxError !== "" && (
+                <p id="checkboxError" className="error-message">
+                  {errors.checkboxError}
+                </p>
+              )}
             </div>
             <div className="card card--inner row">
               <p className="faded">STRENGTH</p>
