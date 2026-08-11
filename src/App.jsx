@@ -48,6 +48,7 @@ export default function App() {
       (formData.includeSymbols && 1);
 
     if (formData.length < counts) return;
+    if (formData.length === 0) return;
     generatePassword();
   };
 
