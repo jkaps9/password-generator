@@ -163,11 +163,23 @@ p {
   isolation: isolate;
 }
 
+body {
+  display: grid;
+  place-content: center;
+}
+
 #root {
-  align-items: stretch;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
+  place-content: center;
+  max-width: 540px;
   min-height: 100svh;
+  width: 100%;
+}
+
+main {
+  display: grid;
+  gap: clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem);
 }
 
 /*~ ~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~>
@@ -176,4 +188,29 @@ p {
 
 .faded {
   color: var(--colors-grey-700);
+}
+
+.card {
+  background-color: var(--color-bg-surface);
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  background: none;
+  border: none;
+}
+
+.btn--primary {
+  align-items: center;
+  background-color: var(--color-primary);
+  display: inline-flex;
+  justify-content: center;
+  padding-block: clamp(1rem, 0.8239rem + 0.7512vw, 1.5rem);
+  text-transform: uppercase;
+  width: 100%;
 }
