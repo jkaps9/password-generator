@@ -59,7 +59,9 @@ export default function App() {
       </header>
       <main>
         <div className="card row">
-          <p className={password === "" ? "faded" : undefined}>
+          <p
+            className={`${password === "" ? "faded" : undefined} password-output`}
+          >
             {password === "" ? "P4$5W0rD!" : password}
           </p>
           <button
@@ -67,7 +69,13 @@ export default function App() {
             onClick={() => navigator.clipboard.writeText(password)}
             aria-label="copy password to clipboard"
           >
-            <img src={CopyIcon} alt="" aria-hidden="true" />
+            <img
+              src={CopyIcon}
+              alt=""
+              aria-hidden="true"
+              height={20}
+              width={17.5}
+            />
           </button>
         </div>
         <div className="card">
@@ -79,7 +87,7 @@ export default function App() {
             <div className="input-group">
               <div className="row">
                 <label htmlFor="range">Character Length</label>
-                <p>{formData.length}</p>
+                <p className="accent-text character-count">{formData.length}</p>
               </div>
               <input
                 type="range"
