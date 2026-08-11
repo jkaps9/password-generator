@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg";
+import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -63,9 +64,13 @@ export default function App() {
           </button>
         </div>
         <div className="card">
-          <form onSubmit={handleSubmit} noValidate>
+          <form
+            onSubmit={handleSubmit}
+            className="generate-password-form"
+            noValidate
+          >
             <div className="input-group">
-              <div>
+              <div className="row">
                 <label htmlFor="range">Character Length</label>
                 <p>{formData.length}</p>
               </div>
@@ -126,11 +131,12 @@ export default function App() {
                 />
                 <label htmlFor="includeSymbols">Include Symbols</label>
               </div>
-              <div className="input-group">
-                <button className="btn btn--primary" type="submit">
-                  Generate
-                </button>
-              </div>
+            </div>
+            <div className="input-group">
+              <button className="btn btn--primary" type="submit">
+                Generate
+                <img src={ArrowIcon} alt="" aria-hidden="true" />
+              </button>
             </div>
           </form>
         </div>
