@@ -3,21 +3,25 @@ import { useState, useCallback } from "react";
 export default function App() {
   const [formData, setFormData] = useState({
     length: 8,
-    includeUppercase: "off",
-    includeLowerCase: "off",
-    includeNumbers: "off",
-    includeSymbols: "off",
+    includeUppercase: true,
+    includeLowercase: true,
+    includeNumbers: false,
+    includeSymbols: false,
   });
 
   const [password, setPassword] = useState("");
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    console.log(name, value, type);
+    const parsedValue = type === "checkbox" ? e.target.checked : value;
+    setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   };
 
   const generatePassword = useCallback(() => {
-    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    let chars = "";
+    if (formData.includeUppercase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (formData.includeLowercase) chars += "abcdefghijklmnopqrstuvwxyz";
     if (formData.includeNumbers) chars += "0123456789";
     if (formData.includeSymbols) chars += "!@#$%^&*()_+";
 
@@ -26,9 +30,14 @@ export default function App() {
       const index = Math.floor(Math.random() * chars.length);
       generated += chars[index];
     }
-    console.log(generated);
     setPassword(generated);
-  }, [formData.length, formData.includeNumbers, formData.includeSymbols]);
+  }, [
+    formData.length,
+    formData.includeUppercase,
+    formData.includeLowercase,
+    formData.includeNumbers,
+    formData.includeSymbols,
+  ]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +80,7 @@ export default function App() {
                 id="includeUppercase"
                 name="includeUppercase"
                 onChange={handleInputChange}
-                checked={formData.includeUppercase === "on"}
+                checked={formData.includeUppercase}
               />
               <label htmlFor="includeUppercase">
                 Include Uppercase Letters
@@ -83,7 +92,7 @@ export default function App() {
                 id="includeLowercase"
                 name="includeLowercase"
                 onChange={handleInputChange}
-                checked={formData.includeLowercase === "on"}
+                checked={formData.includeLowercase}
               />
               <label htmlFor="includeLowercase">
                 Include Lowercase Letters
@@ -95,7 +104,7 @@ export default function App() {
                 id="includeNumbers"
                 name="includeNumbers"
                 onChange={handleInputChange}
-                checked={formData.includeNumbers === "on"}
+                checked={formData.includeNumbers}
               />
               <label htmlFor="includeNumbers">Include Numbers</label>
             </div>
@@ -105,7 +114,7 @@ export default function App() {
                 id="includeSymbols"
                 name="includeSymbols"
                 onChange={handleInputChange}
-                checked={formData.includeSymbols === "on"}
+                checked={formData.includeSymbols}
               />
               <label htmlFor="includeSymbols">Include Symbols</label>
             </div>
