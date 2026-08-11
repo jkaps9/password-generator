@@ -40,6 +40,14 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setPassword("");
+    const counts =
+      (formData.includeUppercase && 1) +
+      (formData.includeLowercase && 1) +
+      (formData.includeNumbers && 1) +
+      (formData.includeSymbols && 1);
+
+    if (formData.length < counts) return;
     generatePassword();
   };
 
