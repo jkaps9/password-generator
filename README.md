@@ -13,11 +13,7 @@ This is a solution to the [Password generator app challenge on Frontend Mentor](
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
-  - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -25,28 +21,20 @@ This is a solution to the [Password generator app challenge on Frontend Mentor](
 
 Users should be able to:
 
-- [ ] Generate a password based on the selected inclusion options
-- [ ] Copy the generated password to the computer's clipboard
-- [ ] See a strength rating for their generated password
-- [ ] View the optimal layout for the interface depending on their device's screen size
-- [ ] See hover and focus states for all interactive elements on the page
+- [x] Generate a password based on the selected inclusion options
+- [x] Copy the generated password to the computer's clipboard
+- [x] See a strength rating for their generated password
+- [x] View the optimal layout for the interface depending on their device's screen size
+- [x] See hover and focus states for all interactive elements on the page
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+<img src="./screenshot.png" width="500">
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/jkaps9/password-generator](https://github.com/jkaps9/password-generator)
+- Live Site URL: [https://jkaps9.github.io/password-generator/](https://jkaps9.github.io/password-generator/)
 
 ## My process
 
@@ -58,70 +46,53 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 - CSS Grid
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- [Vite](https://www.google.com/search?q=https://vitejs.dev/) - Frontend Tooling
+- SVGR - For importing SVGs as React components
+- Web Crypto API - For secure random number generation
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+I focused heavily on performance and accessibility in this project. One major architectural decision was implementing a dynamic import for the zxcvbn password analysis library. Because the library includes a large dictionary for scoring, downloading it on the initial page load negatively impacts performance. By converting the generation function to be asynchronous and fetching the library only when needed, I kept the initial JavaScript bundle minimal and highly optimized.
 
 ```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
+const generatePassword = async () => {
+  // ... generation logic
+  if (generated) {
+    try {
+      const zxcvbnModule = await import("zxcvbn");
+      const zxcvbn = zxcvbnModule.default || zxcvbnModule;
+      setPasswordAnalysis(zxcvbn(generated));
+    } catch (err) {
+      console.error("Failed to load password analysis tool", err);
+      setPasswordAnalysis(null);
+    }
+  }
 };
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+On the styling side, I utilized modern CSS features like the :has() pseudo-class to handle form validation visually. This allowed me to apply error styling to the entire parent container if any child checkbox was marked invalid, without needing complex JavaScript state for the container's class names.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```css
+.input-group:has(input[type="checkbox"][aria-invalid="true"]),
+input[aria-invalid="true"]::-webkit-slider-runnable-track {
+  border: 1px solid var(--colors-red-500);
+}
+```
+
+I also improved the screen reader experience by strategically using aria-live="polite" regions and aria-describedby to ensure users relying on assistive technologies receive immediate, accurate feedback on form errors and clipboard actions.
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In future projects, I plan to continue refining my approach to web accessibility, specifically regarding the friction between provided UI designs and strict WCAG standards. During this challenge, I had to make calculated adjustments to text colors and contrast ratios to pass automated Lighthouse audits. I want to build a stronger eye for identifying inaccessible design choices early in the development cycle.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+I also want to continue mastering advanced CSS layout techniques and modern form validation patterns in React to keep my components modular and clean.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
-### AI Collaboration
-
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
-
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
-
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
+- [MDN Web Docs](https://www.google.com/search?q=https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues): Crypto.getRandomValues() - This documentation was essential for ensuring the password generation logic was cryptographically secure rather than relying on Math.random().
+- [Vite Features: Dynamic Imports](https://www.google.com/search?q=https://vitejs.dev/guide/features.html%23dynamic-import) - This helped me understand how Vite handles code-splitting out of the box, which was necessary for optimizing the zxcvbn package payload.
+- [Axe Accessibility Testing](https://www.google.com/search?q=https://www.deque.com/axe/) - Running automated audits helped me catch missing form labels and improper ARIA attribute usage, ensuring the final application is fully navigable by screen readers.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@jkaps9](https://www.frontendmentor.io/profile/jkaps9)
