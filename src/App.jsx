@@ -13,6 +13,10 @@ export default function App() {
     includeSymbols: false,
   });
 
+  const [errors, setErrors] = useState({
+    lengthError: "",
+  });
+
   const [password, setPassword] = useState("");
   const [passwordAnalysis, setPasswordAnalysis] = useState(null);
 
@@ -44,18 +48,34 @@ export default function App() {
     formData.includeSymbols,
   ]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setPassword("");
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { lengthError: "" };
     const counts =
       (formData.includeUppercase && 1) +
       (formData.includeLowercase && 1) +
       (formData.includeNumbers && 1) +
       (formData.includeSymbols && 1);
+    if (formData.length < counts) {
+      isValid = false;
+      newErrors.lengthError = `Password Length must be at least ${counts} characters`;
+    } else if (formData.length === 0) {
+      isValid = false;
+      newErrors.lengthError = `Password Length must be at least ${counts} characters`;
+    }
 
-    if (formData.length < counts) return;
-    if (formData.length === 0) return;
-    generatePassword();
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPassword("");
+    setPasswordAnalysis(null);
+
+    if (validateForm()) {
+      generatePassword();
+    }
   };
 
   return (
