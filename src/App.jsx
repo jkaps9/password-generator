@@ -13,7 +13,6 @@ export default function App() {
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-    console.log(name, value, type);
     const parsedValue = type === "checkbox" ? e.target.checked : value;
     setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   };
