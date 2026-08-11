@@ -294,8 +294,8 @@ label {
 
   & > * {
     border: 2px solid var(--color-border);
-    min-height: 28px;
-    width: 10px;
+    min-height: 1.75rem;
+    width: 0.625rem;
   }
 
   &.one-bar > .filled {
