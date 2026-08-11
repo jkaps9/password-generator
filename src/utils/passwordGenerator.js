@@ -22,7 +22,7 @@ export function generateSecurePassword(
   window.crypto.getRandomValues(randomValues);
   let tempIndex = 0;
 
-  let passwordArray = [];
+  const passwordArray = [];
 
   if (includeUppercase)
     passwordArray.push(

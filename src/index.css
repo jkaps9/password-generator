@@ -174,7 +174,7 @@ p {
   /* SPACING */
   --spacing-100: 8;
   margin-inline: auto;
-  max-width: 540px;
+  max-width: 33.75rem;
   min-height: 100svh;
   width: 100%;
 }

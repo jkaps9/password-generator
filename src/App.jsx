@@ -126,6 +126,7 @@ export default function App() {
             aria-label={
               isCopiedTextVisible ? "Password copied" : "Copy password"
             }
+            type="button"
             disabled={password === ""}
           >
             {isCopiedTextVisible ? (
