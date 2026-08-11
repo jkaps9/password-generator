@@ -12,9 +12,11 @@ export function generateSecurePassword(
   if (includeSymbols) chars += "!@#$%^&*()_+";
 
   let generated = "";
+  const randomValues = new Uint32Array(length);
+  window.crypto.getRandomValues(randomValues);
+
   for (let i = 0; i < length; i++) {
-    const index = Math.floor(Math.random() * chars.length);
-    generated += chars[index];
+    generated += chars[randomValues[i] % chars.length];
   }
 
   return generated;
