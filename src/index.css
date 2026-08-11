@@ -18,7 +18,8 @@
   --colors-orange-400: #fb7c58;
   --colors-red-500: #f64a4a;
   --colors-green-200: #a4ffaf;
-  --colors-grey-700: #54535b;
+  --colors-grey-700: #807f90;
+
   --colors-grey-900: #14131b;
   --colors-grey-950: #08070b;
 
@@ -220,7 +221,8 @@ h1 {
   color: var(--color-primary);
   gap: 1rem;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: var(--color-text-body);
     cursor: pointer;
   }
@@ -244,6 +246,7 @@ h1 {
   width: 100%;
 
   &:hover,
+  &:focus-visible,
   &:active {
     background-color: transparent;
     border-color: var(--color-primary);
