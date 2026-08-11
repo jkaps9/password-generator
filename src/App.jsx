@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
 import { generateSecurePassword } from "./utils/passwordGenerator";
+import zxcvbn from "zxcvbn";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function App() {
   });
 
   const [password, setPassword] = useState("");
+  const [passwordAnalysis, setPasswordAnalysis] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -28,7 +30,11 @@ export default function App() {
       formData.includeNumbers,
       formData.includeSymbols,
     );
-
+    if (generated) {
+      setPasswordAnalysis(zxcvbn(generated));
+    } else {
+      setPasswordAnalysis(null);
+    }
     setPassword(generated);
   }, [
     formData.length,
@@ -145,6 +151,44 @@ export default function App() {
                   checked={formData.includeSymbols}
                 />
                 <label htmlFor="includeSymbols">Include Symbols</label>
+              </div>
+            </div>
+            <div className="card card--inner row">
+              <p>STRENGTH</p>
+              <div className="password-strength">
+                <p>
+                  {passwordAnalysis?.score <= 1
+                    ? "WEAK"
+                    : passwordAnalysis?.score <= 3
+                      ? "MEDIUM"
+                      : "STRONG"}
+                </p>
+                <div className="strength-bars">
+                  <div
+                    className={`
+                    ${passwordAnalysis?.score >= 1 ? "filled" : undefined}
+                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
+                    `}
+                  ></div>
+                  <div
+                    className={`
+                    ${passwordAnalysis?.score >= 2 ? "filled" : undefined}
+                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
+                    `}
+                  ></div>
+                  <div
+                    className={`
+                    ${passwordAnalysis?.score >= 3 ? "filled" : undefined}
+                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
+                    `}
+                  ></div>
+                  <div
+                    className={`
+                    ${passwordAnalysis?.score >= 4 ? "filled" : undefined}
+                    ${passwordAnalysis?.score == 4 ? "filled--all" : undefined}
+                    `}
+                  ></div>
+                </div>
               </div>
             </div>
             <div className="input-group">
