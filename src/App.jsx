@@ -56,7 +56,6 @@ export default function App() {
       newErrors.checkboxError = "Must select at least 1 checkbox";
     }
 
-    console.log(formData);
     if (Number(formData.length) === 0) {
       isValid = false;
       newErrors.lengthError = `Password length must be at least 1 character`;
@@ -67,7 +66,6 @@ export default function App() {
       newErrors.lengthError = `Password length must be at least ${counts} characters`;
     }
 
-    console.log(newErrors);
     setErrors(newErrors);
     return isValid;
   };
