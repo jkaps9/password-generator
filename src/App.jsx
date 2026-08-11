@@ -117,6 +117,7 @@ export default function App() {
             className="btn row"
             onClick={handleCopy}
             aria-label="copy password to clipboard"
+            disabled={password === ""}
           >
             {isCopiedTextVisible && <p className="accent-text">COPIED</p>}
             <CopyIcon aria-hidden="true" height={20} width={17.5}></CopyIcon>

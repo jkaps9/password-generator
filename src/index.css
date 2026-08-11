@@ -224,6 +224,11 @@ h1 {
     color: var(--color-text-body);
     cursor: pointer;
   }
+
+  &:disabled {
+    color: var(--colors-grey-700);
+    cursor: not-allowed;
+  }
 }
 
 .btn--primary {
