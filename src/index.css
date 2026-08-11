@@ -160,12 +160,12 @@ p {
 /*
   10. Create a root stacking context
 */
-#root,
-#__next {
+[id="root"],
+[id="__next"] {
   isolation: isolate;
 }
 
-#root {
+[id="root"] {
   display: flex;
   flex-direction: column;
   gap: clamp(1rem, 0.6479rem + 1.5023vw, 2rem);
