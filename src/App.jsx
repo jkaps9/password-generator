@@ -123,7 +123,9 @@ export default function App() {
           <button
             className="btn row"
             onClick={handleCopy}
-            aria-label="copy password to clipboard"
+            aria-label={
+              isCopiedTextVisible ? "Password copied" : "Copy password"
+            }
             disabled={password === ""}
           >
             {isCopiedTextVisible ? (
@@ -154,7 +156,7 @@ export default function App() {
           >
             <div className="input-group">
               <div className="row">
-                <label htmlFor="range">Character Length</label>
+                <label htmlFor="length">Character Length</label>
                 <p className="accent-text character-count">{formData.length}</p>
               </div>
               <input
@@ -169,13 +171,9 @@ export default function App() {
                 aria-invalid={errors.lengthError ? "true" : "false"}
                 aria-describedby="lengthError"
               />
-              <div aria-live="polite">
-                {errors.lengthError !== "" && (
-                  <p id="lengthError" className="error-message">
-                    {errors.lengthError}
-                  </p>
-                )}
-              </div>
+              <p id="lengthError" className="error-message" aria-live="polite">
+                {errors.lengthError}
+              </p>
             </div>
 
             <div className="input-group">
@@ -247,13 +245,13 @@ export default function App() {
                 />
                 <label htmlFor="includeSymbols">Include Symbols</label>
               </div>
-              <div aria-live="polite">
-                {errors.checkboxError !== "" && (
-                  <p id="checkboxError" className="error-message">
-                    {errors.checkboxError}
-                  </p>
-                )}
-              </div>
+              <p
+                id="checkboxError"
+                className="error-message"
+                aria-live="polite"
+              >
+                {errors.checkboxError}
+              </p>
             </div>
             <div className="card card--inner row">
               <p className="faded">STRENGTH</p>
