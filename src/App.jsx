@@ -3,7 +3,6 @@ import CopyIcon from "./assets/icons/icon-copy.svg?react";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg?react";
 import CheckIcon from "./assets/icons/icon-check.svg?react";
 import { generateSecurePassword } from "./utils/passwordGenerator";
-import zxcvbn from "zxcvbn";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -41,7 +40,7 @@ export default function App() {
     setFormData((prev) => ({ ...prev, [name]: parsedValue }));
   };
 
-  const generatePassword = () => {
+  const generatePassword = async () => {
     const generated = generateSecurePassword(
       formData.length,
       formData.includeUppercase,
@@ -50,7 +49,14 @@ export default function App() {
       formData.includeSymbols,
     );
     if (generated) {
-      setPasswordAnalysis(zxcvbn(generated));
+      try {
+        const zxcvbnModule = await import("zxcvbn");
+        const zxcvbn = zxcvbnModule.default || zxcvbnModule;
+        setPasswordAnalysis(zxcvbn(generated));
+      } catch (err) {
+        console.error("Failed to load password analysis tool", err);
+        setPasswordAnalysis(null);
+      }
     } else {
       setPasswordAnalysis(null);
     }
