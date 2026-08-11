@@ -154,14 +154,16 @@ export default function App() {
               </div>
             </div>
             <div className="card card--inner row">
-              <p>STRENGTH</p>
+              <p className="faded">STRENGTH</p>
               <div className="password-strength">
                 <p>
                   {passwordAnalysis?.score <= 1
                     ? "WEAK"
                     : passwordAnalysis?.score <= 3
                       ? "MEDIUM"
-                      : "STRONG"}
+                      : passwordAnalysis?.score == 4
+                        ? "STRONG"
+                        : " "}
                 </p>
                 <div className="strength-bars">
                   <div
