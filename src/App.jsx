@@ -3,10 +3,10 @@ import { useState } from "react";
 export default function App() {
   const [formData, setFormData] = useState({
     length: 8,
-    includeUppercase: false,
-    includeLowerCase: false,
-    includeNumbers: false,
-    includeSymbols: false,
+    includeUppercase: "off",
+    includeLowerCase: "off",
+    includeNumbers: "off",
+    includeSymbols: "off",
   });
 
   const handleInputChange = (e) => {
@@ -36,6 +36,53 @@ export default function App() {
               step="1"
               onChange={handleInputChange}
             />
+          </div>
+
+          <div className="input-group">
+            <div>
+              <input
+                type="checkbox"
+                id="includeUppercase"
+                name="includeUppercase"
+                onChange={handleInputChange}
+                checked={formData.includeUppercase === "on"}
+              />
+              <label htmlFor="includeUppercase">
+                Include Uppercase Letters
+              </label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="includeLowercase"
+                name="includeLowercase"
+                onChange={handleInputChange}
+                checked={formData.includeLowercase === "on"}
+              />
+              <label htmlFor="includeLowercase">
+                Include Lowercase Letters
+              </label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="includeNumbers"
+                name="includeNumbers"
+                onChange={handleInputChange}
+                checked={formData.includeNumbers === "on"}
+              />
+              <label htmlFor="includeNumbers">Include Numbers</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="includeSymbols"
+                name="includeSymbols"
+                onChange={handleInputChange}
+                checked={formData.includeSymbols === "on"}
+              />
+              <label htmlFor="includeSymbols">Include Symbols</label>
+            </div>
           </div>
         </form>
       </main>
