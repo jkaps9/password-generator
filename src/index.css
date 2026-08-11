@@ -304,6 +304,7 @@ label {
   }
 }
 
+input[aria-invalid="true"],
 input[aria-invalid="true"]::-webkit-slider-runnable-track {
   border: 1px solid var(--colors-red-500);
 }

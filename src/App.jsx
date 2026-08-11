@@ -60,14 +60,20 @@ export default function App() {
     if (counts === 0) {
       isValid = false;
       newErrors.checkboxError = "Must select at least 1 checkbox";
-    } else if (formData.length < counts) {
-      isValid = false;
-      newErrors.lengthError = `Password Length must be at least ${counts} characters`;
-    } else if (formData.length === 0) {
-      isValid = false;
-      newErrors.lengthError = `Password Length must be at least ${counts} characters`;
     }
 
+    console.log(formData);
+    if (Number(formData.length) === 0) {
+      isValid = false;
+      newErrors.lengthError = `Password length must be at least 1 character`;
+    }
+
+    if (Number(formData.length) < counts) {
+      isValid = false;
+      newErrors.lengthError = `Password length must be at least ${counts} characters`;
+    }
+
+    console.log(newErrors);
     setErrors(newErrors);
     return isValid;
   };
