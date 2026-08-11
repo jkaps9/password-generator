@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import CopyIcon from "./assets/icons/icon-copy.svg";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -53,6 +54,12 @@ export default function App() {
           <p className={password === "" ? "faded" : undefined}>
             {password === "" ? "P4$5W0rD!" : password}
           </p>
+          <button
+            onClick={() => navigator.clipboard.writeText(password)}
+            aria-label="copy password to clipboard"
+          >
+            <img src={CopyIcon} alt="" aria-hidden="true" />
+          </button>
         </div>
         <form onSubmit={handleSubmit} noValidate>
           <div className="input-group">
