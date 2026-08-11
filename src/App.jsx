@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg";
+import { generateSecurePassword } from "./utils/passwordGenerator";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -20,17 +21,14 @@ export default function App() {
   };
 
   const generatePassword = useCallback(() => {
-    let chars = "";
-    if (formData.includeUppercase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if (formData.includeLowercase) chars += "abcdefghijklmnopqrstuvwxyz";
-    if (formData.includeNumbers) chars += "0123456789";
-    if (formData.includeSymbols) chars += "!@#$%^&*()_+";
+    const generated = generateSecurePassword(
+      formData.length,
+      formData.includeUppercase,
+      formData.includeLowercase,
+      formData.includeNumbers,
+      formData.includeSymbols,
+    );
 
-    let generated = "";
-    for (let i = 0; i < formData.length; i++) {
-      const index = Math.floor(Math.random() * chars.length);
-      generated += chars[index];
-    }
     setPassword(generated);
   }, [
     formData.length,
