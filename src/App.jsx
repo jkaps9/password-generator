@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import CopyIcon from "./assets/icons/icon-copy.svg?react";
 import ArrowIcon from "./assets/icons/icon-arrow-right.svg?react";
+import CheckIcon from "./assets/icons/icon-check.svg?react";
 import { generateSecurePassword } from "./utils/passwordGenerator";
 import zxcvbn from "zxcvbn";
 
@@ -94,7 +95,7 @@ export default function App() {
   };
 
   const handleCopy = () => {
-    if (password === "") {
+    if (password === "" || isCopiedTextVisible) {
       return;
     }
     navigator.clipboard.writeText(password);
@@ -119,8 +120,24 @@ export default function App() {
             aria-label="copy password to clipboard"
             disabled={password === ""}
           >
-            {isCopiedTextVisible && <p className="accent-text">COPIED</p>}
-            <CopyIcon aria-hidden="true" height={20} width={17.5}></CopyIcon>
+            {isCopiedTextVisible ? (
+              <>
+                <p className="accent-text">COPIED</p>
+                <CheckIcon
+                  aria-hidden="true"
+                  height={20}
+                  width={17.5}
+                ></CheckIcon>
+              </>
+            ) : (
+              <>
+                <CopyIcon
+                  aria-hidden="true"
+                  height={20}
+                  width={17.5}
+                ></CopyIcon>
+              </>
+            )}
           </button>
         </div>
         <div className="card">
